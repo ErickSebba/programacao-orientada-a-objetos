@@ -5,6 +5,10 @@ import { Exemplar } from "./Exemplar";
 import { Cliente } from "./Cliente";
 import { Emprestimo } from "./Emprestimo";
 
+// A data de devolução precisa ser futura: os testes usam 30 dias a partir de hoje
+// (antes era uma data fixa de 2024, que deixou de ser válida).
+const daquiA30Dias = () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+
 
 describe('Testes das classes Verdadeiras', () => {
 
@@ -28,7 +32,7 @@ describe('Testes das classes Verdadeiras', () => {
         let diario = new Livro('Diario de um Banana', new Autor('Jeff Kinney','jeff.kinney@gmail.com','123456','rua UFMT', 1) , new Date('2024-08-30'), new Genero('Infantil'));
         let diarioExemplar  = new Exemplar(diario, false, true);
         let cliente  = new Cliente('João', 1, 'Rua 1', '999999999', 'joao@gmail.com');
-        let emprestimo = new Emprestimo(cliente, diarioExemplar, new Date('2024-07-01'));
+        let emprestimo = new Emprestimo(cliente, diarioExemplar, daquiA30Dias());
         cliente.addEmprestimo(emprestimo);
         expect(emprestimo).toBeDefined();
     });
@@ -58,7 +62,7 @@ describe('Testes das classes Verdadeiras', () => {
         let diario = new Livro('Diario de um Banana', new Autor('Jeff Kinney','jeff.kinney@gmail.com','123456','rua UFMT', 1) , new Date('2024-08-30'), new Genero('Infantil'));
         let diarioExemplar = new Exemplar(diario, false, true);
         let cliente  = new Cliente('João', 1, 'Rua 1', '999999999', 'joao@gmail.com');
-        let emprestimo = new Emprestimo(cliente, diarioExemplar, new Date('2024-07-01'));
+        let emprestimo = new Emprestimo(cliente, diarioExemplar, daquiA30Dias());
         diarioExemplar.devolver(emprestimo.getDataDevolucaoPrevista());
         expect(diarioExemplar.idStatus).toBe(false);
     });
@@ -67,7 +71,7 @@ describe('Testes das classes Verdadeiras', () => {
         let diario = new Livro('Diario de um Banana', new Autor('Jeff Kinney','jeff.kinney@gmail.com','123456','rua UFMT', 1) , new Date('2024-08-30'), new Genero('Infantil'));
         let diarioExemplar  = new Exemplar(diario, false, true);
         let cliente  = new Cliente('João', 1, 'Rua 1', '999999999', 'joao@gmail.com');
-        let emprestimo = new Emprestimo(cliente, diarioExemplar, new Date('2024-07-01'));
+        let emprestimo = new Emprestimo(cliente, diarioExemplar, daquiA30Dias());
         emprestimo.renovarEmprestimo();
         expect('Emprestimo renovado');
         

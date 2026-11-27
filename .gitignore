@@ -41,3 +41,9 @@ dist/**/*
 
 # ignore yarn.lock
 yarn.lock
+
+# Vídeos de demonstração, enunciados e ferramentas de IA (ficam só no disco)
+*.mp4
+*.pdf
+.claude/
+CLAUDE.md
